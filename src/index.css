@@ -682,6 +682,13 @@ section {
   font-weight: 600;
 }
 
+.contact__error {
+  color: var(--pink);
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin: -6px 0 0;
+}
+
 /* ---------- footer ---------- */
 
 .footer {
@@ -757,11 +764,19 @@ section {
   animation: rise 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
+.modal__box--short {
+  width: min(380px, 100%);
+}
+
 .modal__frame {
   border-radius: var(--radius);
   overflow: hidden;
   aspect-ratio: 16 / 9;
   background: #000;
+}
+
+.modal__frame--short {
+  aspect-ratio: 9 / 16;
 }
 .modal__frame iframe {
   width: 100%;
@@ -851,6 +866,21 @@ section {
 .admin-login__form h1 {
   font-family: var(--font-display);
   font-size: 1.6rem;
+}
+
+.admin-login__form input {
+  font-family: inherit;
+  font-size: 1.15rem;
+  padding: 18px 20px;
+  border-radius: 12px;
+  border: 1px solid rgba(245, 243, 238, 0.15);
+  background: var(--bg-soft);
+  color: var(--ink);
+}
+
+.admin-login__form input:focus {
+  outline: 2px solid var(--yellow);
+  outline-offset: 1px;
 }
 
 .admin-login__error {

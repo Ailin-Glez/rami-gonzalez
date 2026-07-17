@@ -1,32 +1,33 @@
-# React + TypeScript + Vite
+# Rami González — sitio web
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+React + TypeScript + Vite. Incluye hero, sobre mí, videos de YouTube, tickets/shows (Firestore) y un formulario para pedir ciudad que notifica por email vía Resend usando una Netlify Function.
 
-Currently, two official plugins are available:
+## Desarrollo
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
-
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the Oxlint configuration
-
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
-
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+```bash
+npm install
+cp .env.example .env   # completa las credenciales de Firebase
+npm run dev
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+## Notificación por email de "pide tu ciudad" (Resend + Netlify Functions)
+
+El formulario de contacto llama a `/api/send-city-request`, que Netlify enruta a la función en `netlify/functions/send-city-request.ts`. Esa función llama a la API de Resend con la API key guardada como variable de entorno del lado del servidor (nunca en el navegador). El tier gratuito de Netlify incluye funciones serverless sin necesidad de tarjeta de crédito.
+
+Pasos para activarlo:
+
+1. Sube el repo a GitHub (ya está) y conéctalo en [app.netlify.com](https://app.netlify.com) como "Import from Git" — Netlify detecta `netlify.toml` automáticamente (build: `npm run build`, publish: `dist`, functions: `netlify/functions`).
+2. En **Site settings → Environment variables** agrega:
+   - `RESEND_API_KEY`: tu API key de Resend
+   - `NOTIFY_EMAIL`: el email donde Rami quiere recibir las peticiones
+   - `FROM_EMAIL` (opcional): remitente verificado en Resend. Si lo dejas vacío usa `onboarding@resend.dev`, el dominio de pruebas de Resend, que solo entrega a la cuenta dueña del API key.
+3. Vuelve a desplegar (o espera al próximo push) para que la función tome las variables.
+
+### Probar localmente
+
+```bash
+npm install -g netlify-cli
+netlify dev
+```
+
+`netlify dev` levanta Vite y las funciones juntos y lee variables desde `netlify env` o un `.env` local — copia `netlify/functions/.env.example` y complétalo para probar sin tocar producción.
