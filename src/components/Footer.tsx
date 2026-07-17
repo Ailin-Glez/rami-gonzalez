@@ -18,7 +18,7 @@ export default function Footer() {
           </svg>
         </a>
       </div>
-      <p className="footer__copy">Todos los derechos reservados © {new Date().getFullYear()}.</p>
+      <p className="footer__copy">Todos los derechos reservados © {new Date().getFullYear()}</p>
     </footer>
   );
 }

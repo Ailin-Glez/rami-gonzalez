@@ -848,7 +848,7 @@ section {
 
   .hero__image {
     transform: scale(1.8);
-    transform-origin: center 65%;
+    transform-origin: center 80%;
   }
 
   .hero__cta {
