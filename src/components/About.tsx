@@ -1,4 +1,4 @@
-import backstage from "../assets/backstage.webp";
+import about from "../assets/about.webp";
 import { useReveal } from "../useReveal";
 
 export default function About() {
@@ -17,11 +17,11 @@ export default function About() {
 
         <div className="about__image-frame">
           <img
-            src={backstage}
+            src={about}
             alt="Rami González antes de salir a escena"
             className="about__image"
-            width={801}
-            height={1200}
+            width={900}
+            height={1350}
             loading="lazy"
           />
           <div className="about__tag">detrás de cámaras</div>
