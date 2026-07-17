@@ -1,4 +1,4 @@
-import backstage from "../assets/backstage.jpg";
+import backstage from "../assets/backstage.webp";
 import { useReveal } from "../useReveal";
 
 export default function About() {
@@ -8,7 +8,14 @@ export default function About() {
     <section id="sobre-mi" className="about">
       <div ref={ref} className={`about__wrap reveal ${visible ? "reveal--visible" : ""}`}>
         <div className="about__image-frame">
-          <img src={backstage} alt="Rami González antes de salir a escena" className="about__image" />
+          <img
+            src={backstage}
+            alt="Rami González antes de salir a escena"
+            className="about__image"
+            width={801}
+            height={1200}
+            loading="lazy"
+          />
           <div className="about__tag">detrás de cámaras</div>
         </div>
 

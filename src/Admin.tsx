@@ -2,20 +2,33 @@ import { useEffect, useState, type FormEvent } from "react";
 import { addShow, deleteShow, subscribeToShows, updateShow, type NewShow, type Show } from "./shows";
 import { US_CITIES } from "./usCities";
 
-const ADMIN_PASSWORD = import.meta.env.VITE_ADMIN_PASSWORD;
 const AUTH_KEY = "rami-admin-auth";
 
 function Login({ onSuccess }: { onSuccess: () => void }) {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [checking, setChecking] = useState(false);
 
-  function handleSubmit(e: FormEvent) {
+  async function handleSubmit(e: FormEvent) {
     e.preventDefault();
-    if (password === ADMIN_PASSWORD) {
-      localStorage.setItem(AUTH_KEY, "1");
-      onSuccess();
-    } else {
-      setError("Contraseña incorrecta");
+    setChecking(true);
+    setError("");
+    try {
+      const res = await fetch("/api/admin-login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ password }),
+      });
+      if (res.ok) {
+        localStorage.setItem(AUTH_KEY, "1");
+        onSuccess();
+      } else {
+        setError("Contraseña incorrecta");
+      }
+    } catch {
+      setError("No se pudo conectar con el servidor");
+    } finally {
+      setChecking(false);
     }
   }
 
@@ -31,8 +44,8 @@ function Login({ onSuccess }: { onSuccess: () => void }) {
           autoFocus
         />
         {error && <p className="admin-login__error">{error}</p>}
-        <button type="submit" className="btn btn--primary btn--wide">
-          Entrar
+        <button type="submit" className="btn btn--primary btn--wide" disabled={checking}>
+          {checking ? "Verificando..." : "Entrar"}
         </button>
       </form>
     </div>

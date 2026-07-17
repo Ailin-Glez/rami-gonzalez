@@ -1,9 +1,16 @@
-import stageMic from "../assets/stage-mic.jpg";
+import stageMic from "../assets/stage-mic.webp";
 
 export default function Hero() {
   return (
     <section id="top" className="hero">
-      <img src={stageMic} alt="Rami González en el escenario" className="hero__image" />
+      <img
+        src={stageMic}
+        alt="Rami González en el escenario"
+        className="hero__image"
+        width={1335}
+        height={2000}
+        fetchPriority="high"
+      />
       <div className="hero__overlay" />
 
       <div className="hero__blob hero__blob--one" />
