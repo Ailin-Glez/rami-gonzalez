@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import type { Video } from "../data";
+import type { Video } from "../youtube";
 
 interface Props {
   video: Video;

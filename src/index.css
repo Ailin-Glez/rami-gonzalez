@@ -681,6 +681,13 @@ section {
   font-weight: 600;
 }
 
+.contact__error {
+  color: var(--pink);
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin: -6px 0 0;
+}
+
 /* ---------- footer ---------- */
 
 .footer {

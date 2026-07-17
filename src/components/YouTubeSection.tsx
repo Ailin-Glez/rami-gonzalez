@@ -1,11 +1,19 @@
-import { useState } from "react";
-import { videos, YOUTUBE_CHANNEL_URL, type Video } from "../data";
+import { useEffect, useState } from "react";
+import { YOUTUBE_CHANNEL_URL } from "../data";
+import { fetchLatestVideos, type Video } from "../youtube";
 import VideoModal from "./VideoModal";
 import { useReveal } from "../useReveal";
 
 export default function YouTubeSection() {
   const [active, setActive] = useState<Video | null>(null);
+  const [videos, setVideos] = useState<Video[]>([]);
   const { ref, visible } = useReveal<HTMLDivElement>();
+
+  useEffect(() => {
+    fetchLatestVideos(3)
+      .then(setVideos)
+      .catch(() => setVideos([]));
+  }, []);
 
   return (
     <section id="youtube" className="youtube">
