@@ -60,6 +60,6 @@ async function fetchRecentVideos(count: number): Promise<Video[]> {
 export async function fetchFeaturedVideos(): Promise<FeaturedVideos> {
   const recent = await fetchRecentVideos(20);
   const main = recent.find((video) => !video.isShort) ?? null;
-  const shorts = recent.filter((video) => video.isShort).slice(0, 3);
+  const shorts = recent.filter((video) => video.isShort).slice(0, 4);
   return { main, shorts };
 }

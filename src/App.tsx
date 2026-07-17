@@ -12,10 +12,10 @@ function App() {
       <Navbar />
       <main>
         <Hero />
-        <About />
         <Tickets />
         <YouTubeSection />
         <ContactForm />
+        <About />
       </main>
       <Footer />
     </>

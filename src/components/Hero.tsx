@@ -23,16 +23,7 @@ export default function Hero() {
         </h1>
       </div>
 
-      <div className="hero__cta">
-        <a href="#tickets" className="btn btn--primary">
-          Ver tickets
-        </a>
-        <a href="#youtube" className="btn btn--ghost">
-          Ver YouTube
-        </a>
-      </div>
-
-      <a href="#sobre-mi" className="hero__scroll" aria-label="Bajar">
+      <a href="#tickets" className="hero__scroll" aria-label="Bajar">
         <span />
       </a>
     </section>

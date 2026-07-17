@@ -7,6 +7,14 @@ export default function About() {
   return (
     <section id="sobre-mi" className="about">
       <div ref={ref} className={`about__wrap reveal ${visible ? "reveal--visible" : ""}`}>
+        <div className="about__heading">
+          <p className="section-eyebrow">Sobre mí</p>
+          <h2 className="section-title">
+            Humor honesto, <br />
+            historias que se sienten propias.
+          </h2>
+        </div>
+
         <div className="about__image-frame">
           <img
             src={backstage}
@@ -20,24 +28,23 @@ export default function About() {
         </div>
 
         <div className="about__text">
-          <p className="section-eyebrow">Sobre mí</p>
-          <h2 className="section-title">
-            Humor honesto, <br />
-            historias que se sienten propias.
-          </h2>
           <p>
-            Nací en la Isla de la Juventud, Cuba, y empecé a hacer stand-up en Uruguay, donde
-            encontré mi estilo: observación cercana, historias personales y humor honesto —
-            llevando mi mirada cubana a una cultura nueva.
+            Soy comediante, nacido en la Isla de la Juventud, Cuba. He convertido mi experiencia
+            como inmigrante, los choques culturales y las historias de la vida cotidiana en una
+            comedia honesta y cercana con la que miles de latinos se sienten identificados.
           </p>
           <p>
-            Al llegar a Estados Unidos, convertí la experiencia migratoria en mi material más
-            fuerte: los cambios, la adaptación y la vida del inmigrante latino, creando un
-            espacio donde el público se ve reflejado y se ríe de lo suyo.
+            Inicié mi carrera de stand-up en Uruguay, llevando mi visión a una nueva cultura, y
+            hoy me he presentado en escenarios de Estados Unidos, Puerto Rico, Canadá y Cuba. He
+            participado en eventos como Netflix Is A Joke y Miami Es Un Chiste, además de llevar
+            mi comedia a ciudades como Miami, Orlando, Tampa, Nueva York, Houston, Dallas,
+            Denver, San Francisco, Seattle, Toronto, Vancouver, Montreal y Montevideo, entre
+            muchas otras.
           </p>
           <p>
-            He llevado mi comedia a escenarios de Estados Unidos, Puerto Rico, Canadá y
-            Uruguay, conectando con audiencias diversas desde la honestidad y la identificación.
+            Con un estilo que mezcla historias personales, observaciones culturales y el humor
+            de quien ha tenido que empezar de nuevo lejos de casa, demuestro que incluso las
+            experiencias más difíciles pueden convertirse en una buena razón para reír.
           </p>
         </div>
       </div>
