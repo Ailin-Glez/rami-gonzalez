@@ -829,15 +829,24 @@ section {
     transform: translateX(0);
   }
 
+  html {
+    scroll-snap-type: none;
+  }
+
+  section {
+    scroll-snap-align: none;
+    scroll-snap-stop: normal;
+  }
+
   .hero {
     justify-content: flex-start;
-    padding-top: 128px;
+    padding-top: 92px;
     padding-bottom: 40px;
     gap: 18px;
   }
 
   .hero__image {
-    object-position: center 30%;
+    object-position: center 18%;
   }
 
   .hero__cta {
@@ -856,13 +865,17 @@ section {
   }
 
   .ticket-row {
-    flex-direction: column;
-    align-items: center;
+    justify-content: center;
     text-align: center;
   }
 
   .ticket-row__info {
-    align-items: center;
+    flex: 0 0 auto;
+  }
+
+  .ticket-row .btn {
+    flex: 0 0 100%;
+    margin-top: 4px;
   }
 
   .youtube__shorts {
@@ -932,6 +945,18 @@ section {
   font-family: var(--font-display);
   font-size: 2rem;
   margin-bottom: 34px;
+}
+
+.admin__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 34px;
+}
+
+.admin__header h1 {
+  margin-bottom: 0;
 }
 
 .admin-form {
