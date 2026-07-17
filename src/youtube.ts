@@ -2,17 +2,17 @@ export interface Video {
   id: string;
   videoId: string;
   title: string;
-  views: string;
+  isShort: boolean;
 }
 
 const API_KEY = import.meta.env.VITE_YOUTUBE_API_KEY;
 const UPLOADS_PLAYLIST_ID = import.meta.env.VITE_YOUTUBE_UPLOADS_PLAYLIST_ID;
 
-function formatViews(count: string) {
-  const n = Number(count);
-  if (n >= 1_000_000) return `${(n / 1_000_000).toFixed(1).replace(/\.0$/, "")}M vistas`;
-  if (n >= 1_000) return `${(n / 1_000).toFixed(1).replace(/\.0$/, "")}K vistas`;
-  return `${n} vistas`;
+function parseDurationSeconds(iso: string) {
+  const match = iso.match(/PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?/);
+  if (!match) return 0;
+  const [, h, m, s] = match;
+  return (Number(h) || 0) * 3600 + (Number(m) || 0) * 60 + (Number(s) || 0);
 }
 
 export async function fetchLatestVideos(count = 3): Promise<Video[]> {
@@ -30,15 +30,15 @@ export async function fetchLatestVideos(count = 3): Promise<Video[]> {
   );
 
   const ids = items.map((item) => item.videoId).join(",");
-  const statsRes = await fetch(
-    `https://www.googleapis.com/youtube/v3/videos?part=statistics&id=${ids}&key=${API_KEY}`,
+  const detailsRes = await fetch(
+    `https://www.googleapis.com/youtube/v3/videos?part=contentDetails&id=${ids}&key=${API_KEY}`,
   );
-  if (!statsRes.ok) throw new Error("No se pudieron cargar las vistas");
-  const statsData = await statsRes.json();
-  const viewsById = new Map<string, string>(
-    statsData.items.map((item: { id: string; statistics: { viewCount: string } }) => [
+  if (!detailsRes.ok) throw new Error("No se pudieron cargar los detalles");
+  const detailsData = await detailsRes.json();
+  const durationById = new Map<string, number>(
+    detailsData.items.map((item: { id: string; contentDetails: { duration: string } }) => [
       item.id,
-      item.statistics.viewCount,
+      parseDurationSeconds(item.contentDetails.duration),
     ]),
   );
 
@@ -46,6 +46,6 @@ export async function fetchLatestVideos(count = 3): Promise<Video[]> {
     id: item.videoId,
     videoId: item.videoId,
     title: item.title,
-    views: formatViews(viewsById.get(item.videoId) ?? "0"),
+    isShort: (durationById.get(item.videoId) ?? 0) <= 60,
   }));
 }

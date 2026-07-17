@@ -21,11 +21,11 @@ export default function VideoModal({ video, onClose }: Props) {
 
   return (
     <div className="modal" onClick={onClose}>
-      <div className="modal__box" onClick={(e) => e.stopPropagation()}>
+      <div className={`modal__box ${video.isShort ? "modal__box--short" : ""}`} onClick={(e) => e.stopPropagation()}>
         <button className="modal__close" onClick={onClose} aria-label="Cerrar video">
           ✕
         </button>
-        <div className="modal__frame">
+        <div className={`modal__frame ${video.isShort ? "modal__frame--short" : ""}`}>
           <iframe
             src={`https://www.youtube.com/embed/${video.videoId}?autoplay=1`}
             title={video.title}

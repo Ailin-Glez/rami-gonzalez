@@ -37,7 +37,7 @@ export default function YouTubeSection() {
           {videos.map((video, i) => (
             <button
               key={video.id}
-              className="video-card"
+              className={`video-card ${video.isShort ? "video-card--short" : ""}`}
               style={{ animationDelay: `${i * 0.08}s` }}
               onClick={() => setActive(video)}
             >
@@ -50,7 +50,6 @@ export default function YouTubeSection() {
                 <span className="video-card__play">▶</span>
               </span>
               <span className="video-card__title">{video.title}</span>
-              <span className="video-card__views">{video.views}</span>
             </button>
           ))}
         </div>
