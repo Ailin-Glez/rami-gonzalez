@@ -5,7 +5,6 @@
 [functions]
   directory = "netlify/functions"
 
-[[redirects]]
-  from = "/api/*"
-  to = "/.netlify/functions/:splat"
-  status = 200
+# El redirect /api/* -> /.netlify/functions/:splat vive en public/_redirects,
+# no aquí: si existe un archivo _redirects, Netlify ignora por completo
+# los [[redirects]] de este archivo.
