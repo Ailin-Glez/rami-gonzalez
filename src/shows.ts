@@ -34,14 +34,31 @@ export function subscribeToShows(onChange: (shows: Show[]) => void) {
   });
 }
 
-export function addShow(show: NewShow) {
-  return addDoc(showsCollection, show);
+/**
+ * Dispara un rebuild en Netlify para que el HTML prerenderizado
+ * (shows/videos embebidos para SEO) se actualice tras un cambio.
+ * Sin esta variable configurada, no hace nada.
+ */
+function triggerRebuild() {
+  const hookUrl = import.meta.env.VITE_NETLIFY_BUILD_HOOK_URL;
+  if (!hookUrl) return;
+  fetch(hookUrl, { method: "POST" }).catch(() => {});
 }
 
-export function updateShow(id: string, show: NewShow) {
-  return updateDoc(doc(db, "shows", id), show);
+export async function addShow(show: NewShow) {
+  const result = await addDoc(showsCollection, show);
+  triggerRebuild();
+  return result;
 }
 
-export function deleteShow(id: string) {
-  return deleteDoc(doc(db, "shows", id));
+export async function updateShow(id: string, show: NewShow) {
+  const result = await updateDoc(doc(db, "shows", id), show);
+  triggerRebuild();
+  return result;
+}
+
+export async function deleteShow(id: string) {
+  const result = await deleteDoc(doc(db, "shows", id));
+  triggerRebuild();
+  return result;
 }

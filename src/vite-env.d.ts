@@ -10,6 +10,7 @@ interface ImportMetaEnv {
   readonly VITE_ADMIN_PASSWORD: string;
   readonly VITE_YOUTUBE_API_KEY: string;
   readonly VITE_YOUTUBE_UPLOADS_PLAYLIST_ID: string;
+  readonly VITE_NETLIFY_BUILD_HOOK_URL?: string;
 }
 
 interface ImportMeta {
