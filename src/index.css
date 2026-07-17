@@ -882,6 +882,7 @@ section {
 
   .hero__scroll {
     position: static;
+    margin-top: auto;
   }
 
   .tickets {
