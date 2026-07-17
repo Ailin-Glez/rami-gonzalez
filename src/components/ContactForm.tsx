@@ -30,7 +30,7 @@ export default function ContactForm() {
   return (
     <section id="contacto" className="contact">
       <div ref={ref} className={`contact__wrap reveal ${visible ? "reveal--visible" : ""}`}>
-        <p className="section-eyebrow">¿A dónde te llevo la risa?</p>
+        <p className="section-eyebrow">¿A dónde quieres que vaya?</p>
         <h2 className="section-title">Pide tu ciudad</h2>
         <p className="contact__intro">
           Dime dónde vives y cuando arme la próxima gira, tu ciudad ya está en el mapa.

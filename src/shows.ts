@@ -6,6 +6,7 @@ import {
   onSnapshot,
   orderBy,
   query,
+  updateDoc,
 } from "firebase/firestore";
 import { db } from "./firebase";
 
@@ -35,6 +36,10 @@ export function subscribeToShows(onChange: (shows: Show[]) => void) {
 
 export function addShow(show: NewShow) {
   return addDoc(showsCollection, show);
+}
+
+export function updateShow(id: string, show: NewShow) {
+  return updateDoc(doc(db, "shows", id), show);
 }
 
 export function deleteShow(id: string) {

@@ -1,18 +1,18 @@
 import { useEffect, useState } from "react";
 import { YOUTUBE_CHANNEL_URL } from "../data";
-import { fetchLatestVideos, type Video } from "../youtube";
-import VideoModal from "./VideoModal";
+import { fetchFeaturedVideos, type FeaturedVideos } from "../youtube";
 import { useReveal } from "../useReveal";
 
+const EMPTY: FeaturedVideos = { main: null, shorts: [] };
+
 export default function YouTubeSection() {
-  const [active, setActive] = useState<Video | null>(null);
-  const [videos, setVideos] = useState<Video[]>([]);
+  const [{ main, shorts }, setFeatured] = useState<FeaturedVideos>(EMPTY);
   const { ref, visible } = useReveal<HTMLDivElement>();
 
   useEffect(() => {
-    fetchLatestVideos(3)
-      .then(setVideos)
-      .catch(() => setVideos([]));
+    fetchFeaturedVideos()
+      .then(setFeatured)
+      .catch(() => setFeatured(EMPTY));
   }, []);
 
   return (
@@ -33,29 +33,53 @@ export default function YouTubeSection() {
           </a>
         </div>
 
-        <div className="youtube__grid">
-          {videos.map((video, i) => (
-            <button
-              key={video.id}
-              className={`video-card ${video.isShort ? "video-card--short" : ""}`}
-              style={{ animationDelay: `${i * 0.08}s` }}
-              onClick={() => setActive(video)}
+        <div className="youtube__featured">
+          {main && (
+            <a
+              href={`https://www.youtube.com/watch?v=${main.videoId}`}
+              target="_blank"
+              rel="noreferrer"
+              className="video-card video-card--main"
             >
               <span className="video-card__thumb">
                 <img
-                  src={`https://img.youtube.com/vi/${video.videoId}/hqdefault.jpg`}
-                  alt={video.title}
+                  src={`https://img.youtube.com/vi/${main.videoId}/maxresdefault.jpg`}
+                  alt={main.title}
                   loading="lazy"
+                  onError={(e) => {
+                    e.currentTarget.src = `https://img.youtube.com/vi/${main.videoId}/hqdefault.jpg`;
+                  }}
                 />
                 <span className="video-card__play">▶</span>
               </span>
-              <span className="video-card__title">{video.title}</span>
-            </button>
-          ))}
+              <span className="video-card__title">{main.title}</span>
+            </a>
+          )}
+
+          <div className="youtube__shorts">
+            {shorts.map((video, i) => (
+              <a
+                key={video.id}
+                href={`https://www.youtube.com/shorts/${video.videoId}`}
+                target="_blank"
+                rel="noreferrer"
+                className="video-card video-card--short"
+                style={{ animationDelay: `${i * 0.08}s` }}
+              >
+                <span className="video-card__thumb">
+                  <img
+                    src={`https://img.youtube.com/vi/${video.videoId}/hqdefault.jpg`}
+                    alt={video.title}
+                    loading="lazy"
+                  />
+                  <span className="video-card__play">▶</span>
+                </span>
+                <span className="video-card__title">{video.title}</span>
+              </a>
+            ))}
+          </div>
         </div>
       </div>
-
-      {active && <VideoModal video={active} onClose={() => setActive(null)} />}
     </section>
   );
 }

@@ -5,8 +5,14 @@ export interface Video {
   isShort: boolean;
 }
 
+export interface FeaturedVideos {
+  main: Video | null;
+  shorts: Video[];
+}
+
 const API_KEY = import.meta.env.VITE_YOUTUBE_API_KEY;
 const UPLOADS_PLAYLIST_ID = import.meta.env.VITE_YOUTUBE_UPLOADS_PLAYLIST_ID;
+const SHORT_MAX_SECONDS = 180;
 
 function parseDurationSeconds(iso: string) {
   const match = iso.match(/PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?/);
@@ -15,7 +21,7 @@ function parseDurationSeconds(iso: string) {
   return (Number(h) || 0) * 3600 + (Number(m) || 0) * 60 + (Number(s) || 0);
 }
 
-export async function fetchLatestVideos(count = 3): Promise<Video[]> {
+async function fetchRecentVideos(count: number): Promise<Video[]> {
   const playlistRes = await fetch(
     `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=${UPLOADS_PLAYLIST_ID}&maxResults=${count}&key=${API_KEY}`,
   );
@@ -28,6 +34,7 @@ export async function fetchLatestVideos(count = 3): Promise<Video[]> {
       title: item.snippet.title,
     }),
   );
+  if (items.length === 0) return [];
 
   const ids = items.map((item) => item.videoId).join(",");
   const detailsRes = await fetch(
@@ -46,6 +53,13 @@ export async function fetchLatestVideos(count = 3): Promise<Video[]> {
     id: item.videoId,
     videoId: item.videoId,
     title: item.title,
-    isShort: (durationById.get(item.videoId) ?? 0) <= 60,
+    isShort: (durationById.get(item.videoId) ?? 0) < SHORT_MAX_SECONDS,
   }));
+}
+
+export async function fetchFeaturedVideos(): Promise<FeaturedVideos> {
+  const recent = await fetchRecentVideos(20);
+  const main = recent.find((video) => !video.isShort) ?? null;
+  const shorts = recent.filter((video) => video.isShort).slice(0, 3);
+  return { main, shorts };
 }
