@@ -5,13 +5,5 @@ service cloud.firestore {
       allow read: if true;
       allow write: if true;
     }
-
-    match /cityRequests/{requestId} {
-      allow create: if request.resource.data.keys().hasAll(["nombre", "email", "ciudad", "mensaje"])
-        && request.resource.data.nombre is string
-        && request.resource.data.email is string
-        && request.resource.data.ciudad is string;
-      allow read, update, delete: if false;
-    }
   }
 }

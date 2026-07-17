@@ -1,26 +1,16 @@
 import { useState, type FormEvent } from "react";
 import { useReveal } from "../useReveal";
-import { addCityRequest } from "../cityRequests";
 
 export default function ContactForm() {
   const { ref, visible } = useReveal<HTMLDivElement>();
   const [sent, setSent] = useState(false);
-  const [sending, setSending] = useState(false);
-  const [error, setError] = useState(false);
   const [values, setValues] = useState({ nombre: "", email: "", ciudad: "", mensaje: "" });
 
-  const handleSubmit = async (e: FormEvent) => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    setSending(true);
-    setError(false);
-    try {
-      await addCityRequest(values);
-      setSent(true);
-    } catch {
-      setError(true);
-    } finally {
-      setSending(false);
-    }
+    // TODO: conecta este formulario a un backend real (p. ej. Formspree, EmailJS)
+    // para recibir las peticiones de ciudad por correo.
+    setSent(true);
   };
 
   return (
@@ -83,15 +73,9 @@ export default function ContactForm() {
               />
             </label>
 
-            <button type="submit" className="btn btn--primary btn--wide" disabled={sending}>
-              {sending ? "Enviando..." : "Enviar petición"}
+            <button type="submit" className="btn btn--primary btn--wide">
+              Enviar petición
             </button>
-
-            {error && (
-              <p className="contact__error">
-                Algo falló al enviar tu petición. Intenta de nuevo en un momento.
-              </p>
-            )}
           </form>
         )}
       </div>

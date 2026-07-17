@@ -529,14 +529,15 @@ section {
   transform: scale(1);
 }
 
+.video-card--short .video-card__thumb {
+  aspect-ratio: 9 / 16;
+  max-width: 240px;
+  margin: 0 auto;
+}
+
 .video-card__title {
   font-weight: 700;
   font-size: 1.05rem;
-}
-
-.video-card__views {
-  color: var(--ink-dim);
-  font-size: 0.85rem;
 }
 
 /* ---------- tickets ---------- */
@@ -679,13 +680,6 @@ section {
 .contact__success p {
   font-size: 1.1rem;
   font-weight: 600;
-}
-
-.contact__error {
-  color: var(--pink);
-  font-weight: 600;
-  font-size: 0.9rem;
-  margin: -6px 0 0;
 }
 
 /* ---------- footer ---------- */

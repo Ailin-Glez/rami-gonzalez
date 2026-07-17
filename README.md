@@ -1,36 +1,32 @@
-# Rami González — sitio web
+# React + TypeScript + Vite
 
-React + TypeScript + Vite. Incluye hero, sobre mí, videos de YouTube, tickets/shows (Firestore) y un formulario para pedir ciudad, que notifica por email vía Resend usando una Cloud Function.
+This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
 
-## Desarrollo
+Currently, two official plugins are available:
 
-```bash
-npm install
-cp .env.example .env   # completa las credenciales de Firebase
-npm run dev
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+
+## React Compiler
+
+The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+
+## Expanding the Oxlint configuration
+
+If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
+
+```json
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": ["react", "typescript", "oxc"],
+  "options": {
+    "typeAware": true
+  },
+  "rules": {
+    "react/rules-of-hooks": "error",
+    "react/only-export-components": ["warn", { "allowConstantExport": true }]
+  }
+}
 ```
 
-## Notificación por email de "pide tu ciudad" (Resend + Cloud Functions)
-
-El formulario de contacto guarda cada petición en Firestore (`cityRequests`). Una Cloud Function (`functions/`) se dispara al crear el documento y envía un email con [Resend](https://resend.com).
-
-Pasos para activarlo:
-
-1. Instala [firebase-tools](https://firebase.google.com/docs/cli) si no lo tienes: `npm install -g firebase-tools`.
-2. El proyecto de Firebase debe estar en el plan **Blaze** (pago por uso) — las Cloud Functions necesitan salida a internet para llamar a Resend. El nivel gratuito de Blaze cubre este uso sin costo con este volumen.
-3. Configura el email destino y el remitente:
-   ```bash
-   cd functions
-   cp .env.example .env
-   # edita functions/.env con NOTIFY_EMAIL y (opcional) FROM_EMAIL
-   ```
-4. Guarda tu API key de Resend como secreto de Firebase (no va en `.env`):
-   ```bash
-   firebase functions:secrets:set RESEND_API_KEY
-   ```
-5. Despliega:
-   ```bash
-   firebase deploy --only firestore:rules,functions
-   ```
-
-Si usas `FROM_EMAIL=onboarding@resend.dev` (el dominio de pruebas de Resend), los emails solo llegarán a la cuenta dueña del API key. Para recibirlos en cualquier `NOTIFY_EMAIL`, verifica tu propio dominio en Resend y usa un remitente de ese dominio.
+See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
