@@ -10,19 +10,19 @@ export default function Hero() {
       <div className="hero__blob hero__blob--two" />
 
       <div className="hero__content">
-        <p className="hero__eyebrow">Stand up comedy</p>
+        <p className="hero__eyebrow">Stand up comedy · en español</p>
         <h1 className="hero__title">
           RAMI <span className="hero__title-accent">GONZÁLEZ</span>
         </h1>
+      </div>
 
-        <div className="hero__cta">
-          <a href="#tickets" className="btn btn--primary">
-            Ver tickets
-          </a>
-          <a href="#youtube" className="btn btn--ghost">
-            Ver YouTube
-          </a>
-        </div>
+      <div className="hero__cta">
+        <a href="#tickets" className="btn btn--primary">
+          Ver tickets
+        </a>
+        <a href="#youtube" className="btn btn--ghost">
+          Ver YouTube
+        </a>
       </div>
 
       <a href="#sobre-mi" className="hero__scroll" aria-label="Bajar">

@@ -17,6 +17,7 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-snap-type: y mandatory;
 }
 
 body {
@@ -54,6 +55,8 @@ h1, h2, h3 {
 
 section {
   position: relative;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
 }
 
 /* ---------- shared ---------- */
@@ -193,6 +196,17 @@ section {
   color: var(--yellow);
 }
 
+.navbar__logo span.navbar__logo-tag {
+  color: var(--ink-dim);
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  text-transform: none;
+  vertical-align: middle;
+  opacity: 0.75;
+}
+
 .navbar__links {
   display: flex;
   gap: 34px;
@@ -244,12 +258,15 @@ section {
 
 .hero {
   min-height: 100vh;
+  min-height: 100svh;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   position: relative;
   overflow: hidden;
   padding-bottom: 34vh;
+  gap: 44px;
 }
 
 .hero__image {
@@ -260,6 +277,12 @@ section {
   object-fit: cover;
   object-position: center 62%;
   filter: grayscale(0.1) contrast(1.05);
+}
+
+@media (min-width: 721px) {
+  .hero__cta {
+    transform: translateY(-40px);
+  }
 }
 
 .hero__overlay {
@@ -346,7 +369,8 @@ section {
   gap: 18px;
   justify-content: center;
   flex-wrap: wrap;
-  margin-top: 44px;
+  position: relative;
+  z-index: 2;
 }
 
 .hero__scroll {
@@ -715,6 +739,7 @@ section {
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 20px;
+  scroll-snap-align: start;
 }
 
 .footer__logo {
@@ -771,23 +796,20 @@ section {
   .contact__row {
     grid-template-columns: 1fr;
   }
-
-  .youtube__shorts {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 480px) {
-  .youtube__shorts {
-    grid-template-columns: 1fr 1fr;
-    max-width: 340px;
-    margin: 0 auto;
-  }
 }
 
 @media (max-width: 720px) {
   .navbar__burger {
     display: flex;
+  }
+
+  .navbar__logo {
+    opacity: 1;
+    transition: opacity 0.3s ease;
+  }
+  .navbar__logo--hide-mobile {
+    opacity: 0;
+    pointer-events: none;
   }
 
   .navbar__links {
@@ -805,6 +827,51 @@ section {
   }
   .navbar__links--open {
     transform: translateX(0);
+  }
+
+  .hero {
+    justify-content: flex-start;
+    padding-top: 128px;
+    padding-bottom: 40px;
+    gap: 18px;
+  }
+
+  .hero__image {
+    object-position: center 30%;
+  }
+
+  .hero__cta {
+    flex-direction: column;
+    width: 100%;
+    max-width: 320px;
+    margin-top: auto;
+  }
+
+  .hero__scroll {
+    position: static;
+  }
+
+  .tickets {
+    padding: 64px 6vw 70px;
+  }
+
+  .ticket-row {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .ticket-row__info {
+    align-items: center;
+  }
+
+  .youtube__shorts {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+
+  .video-card--short .video-card__title {
+    font-size: 0.7rem;
   }
 }
 

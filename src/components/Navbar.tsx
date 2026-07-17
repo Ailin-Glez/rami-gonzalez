@@ -8,10 +8,14 @@ const LINKS = [
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
+  const [pastHero, setPastHero] = useState(false);
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
+    const onScroll = () => {
+      setScrolled(window.scrollY > 24);
+      setPastHero(window.scrollY > window.innerHeight * 0.7);
+    };
     onScroll();
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
@@ -19,8 +23,12 @@ export default function Navbar() {
 
   return (
     <header className={`navbar ${scrolled ? "navbar--scrolled" : ""}`}>
-      <a href="#top" className="navbar__logo">
+      <a
+        href="#top"
+        className={`navbar__logo ${pastHero ? "" : "navbar__logo--hide-mobile"}`}
+      >
         RAMI<span>GONZÁLEZ</span>
+        <span className="navbar__logo-tag">  comediante</span>
       </a>
 
       <nav className={`navbar__links ${open ? "navbar__links--open" : ""}`}>
