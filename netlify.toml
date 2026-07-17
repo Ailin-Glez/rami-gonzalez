@@ -5,6 +5,14 @@
 [functions]
   directory = "netlify/functions"
 
+# Los archivos en /assets/* llevan un hash de contenido en el nombre
+# (ej. index-C_EkcczM.js), así que cachearlos "para siempre" es seguro:
+# un cambio de contenido siempre produce un nombre de archivo distinto.
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
 # El redirect /api/* -> /.netlify/functions/:splat vive en public/_redirects,
 # no aquí: si existe un archivo _redirects, Netlify ignora por completo
 # los [[redirects]] de este archivo.

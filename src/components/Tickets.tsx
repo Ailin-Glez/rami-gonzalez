@@ -12,6 +12,30 @@ function formatDate(iso: string) {
   });
 }
 
+function showsJsonLd(shows: Show[]) {
+  return shows.map((show) => ({
+    "@context": "https://schema.org",
+    "@type": "Event",
+    name: `Rami González en vivo — ${show.name}`,
+    startDate: show.date,
+    eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+    eventStatus: "https://schema.org/EventScheduled",
+    location: {
+      "@type": "Place",
+      name: show.name,
+    },
+    performer: {
+      "@type": "Person",
+      name: "Rami González",
+    },
+    offers: {
+      "@type": "Offer",
+      url: show.ticketUrl,
+      availability: "https://schema.org/InStock",
+    },
+  }));
+}
+
 export default function Tickets() {
   const { ref, visible } = useReveal<HTMLDivElement>();
   const [shows, setShows] = useState<Show[]>([]);
@@ -20,6 +44,12 @@ export default function Tickets() {
 
   return (
     <section id="tickets" className="tickets">
+      {shows.length > 0 && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(showsJsonLd(shows)) }}
+        />
+      )}
       <div ref={ref} className={`reveal ${visible ? "reveal--visible" : ""}`}>
         <p className="section-eyebrow section-eyebrow--light">La gira</p>
         <h2 className="section-title section-title--light">Próximos shows</h2>

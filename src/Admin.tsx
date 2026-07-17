@@ -1,6 +1,6 @@
 import { useEffect, useState, type FormEvent } from "react";
 import { onAuthStateChanged, signInWithEmailAndPassword, signOut, type User } from "firebase/auth";
-import { auth } from "./firebase";
+import { auth } from "./auth";
 import { addShow, deleteShow, subscribeToShows, updateShow, type NewShow, type Show } from "./shows";
 import { US_CITIES } from "./usCities";
 
