@@ -866,7 +866,7 @@ section {
 
   .hero {
     justify-content: flex-start;
-    padding-top: 130px;
+    padding-top: 108px;
     padding-bottom: 40px;
     gap: 18px;
   }
@@ -919,6 +919,10 @@ section {
 
   .video-card--short .video-card__title {
     font-size: 0.7rem;
+  }
+
+  .footer__logo {
+    display: none;
   }
 }
 
