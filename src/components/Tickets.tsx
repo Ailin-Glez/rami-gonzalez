@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { subscribeToShows, type Show } from "../shows";
+import { fetchShows } from "../showsPublic";
+import type { Show } from "../types";
 import { useReveal } from "../useReveal";
 
 function formatDate(iso: string) {
@@ -40,7 +41,11 @@ export default function Tickets() {
   const { ref, visible } = useReveal<HTMLDivElement>();
   const [shows, setShows] = useState<Show[]>([]);
 
-  useEffect(() => subscribeToShows(setShows), []);
+  useEffect(() => {
+    fetchShows()
+      .then(setShows)
+      .catch(() => setShows([]));
+  }, []);
 
   return (
     <section id="tickets" className="tickets">

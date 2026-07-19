@@ -3,23 +3,18 @@ import {
   collection,
   deleteDoc,
   doc,
+  getFirestore,
   onSnapshot,
   orderBy,
   query,
   updateDoc,
 } from "firebase/firestore";
-import { db } from "./firebase";
+import { app } from "./firebase";
+import type { NewShow, Show } from "./types";
 
-export interface Show {
-  id: string;
-  name: string;
-  /** ISO date string, e.g. "2026-08-12" */
-  date: string;
-  ticketUrl: string;
-}
+export type { NewShow, Show };
 
-export type NewShow = Omit<Show, "id">;
-
+const db = getFirestore(app);
 const showsCollection = collection(db, "shows");
 
 export function subscribeToShows(onChange: (shows: Show[]) => void) {

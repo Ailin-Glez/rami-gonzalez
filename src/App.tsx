@@ -1,10 +1,12 @@
+import { lazy, Suspense } from "react";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
-import About from "./components/About";
-import YouTubeSection from "./components/YouTubeSection";
-import Tickets from "./components/Tickets";
-import ContactForm from "./components/ContactForm";
 import Footer from "./components/Footer";
+
+const Tickets = lazy(() => import("./components/Tickets"));
+const YouTubeSection = lazy(() => import("./components/YouTubeSection"));
+const ContactForm = lazy(() => import("./components/ContactForm"));
+const About = lazy(() => import("./components/About"));
 
 function App() {
   return (
@@ -12,10 +14,18 @@ function App() {
       <Navbar />
       <main>
         <Hero />
-        <Tickets />
-        <YouTubeSection />
-        <ContactForm />
-        <About />
+        <Suspense fallback={null}>
+          <Tickets />
+        </Suspense>
+        <Suspense fallback={null}>
+          <YouTubeSection />
+        </Suspense>
+        <Suspense fallback={null}>
+          <ContactForm />
+        </Suspense>
+        <Suspense fallback={null}>
+          <About />
+        </Suspense>
       </main>
       <Footer />
     </>

@@ -776,6 +776,16 @@ section {
   flex-wrap: wrap;
 }
 
+.footer__social-group {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.footer__social-label {
+  display: none;
+}
+
 .footer__social {
   display: flex;
   gap: 20px;
@@ -921,8 +931,30 @@ section {
     font-size: 0.7rem;
   }
 
+  .footer__inner {
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+  }
+
   .footer__logo {
     display: none;
+  }
+
+  .footer__social-group {
+    order: 1;
+  }
+
+  .footer__social-label {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--yellow);
+  }
+
+  .footer__copy {
+    order: 2;
+    text-align: center;
   }
 }
 
