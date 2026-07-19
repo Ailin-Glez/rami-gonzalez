@@ -1,13 +1,13 @@
-import stageMic from "../assets/stage-mic.webp";
+import heroImage from "../assets/main.webp";
 
 export default function Hero() {
   return (
     <section id="top" className="hero">
       <img
-        src={stageMic}
+        src={heroImage}
         alt="Rami González en el escenario"
         className="hero__image"
-        width={1335}
+        width={1333}
         height={2000}
         fetchPriority="high"
       />
