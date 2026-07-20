@@ -29,17 +29,29 @@ export default function About() {
 
         <div className="about__text">
           <p>
-            Soy comediante, nacido en la Isla de la Juventud, Cuba. He convertido mi experiencia
+            Soy comediante cubano. He convertido mi experiencia
             como inmigrante, los choques culturales y las historias de la vida cotidiana en una
-            comedia honesta y cercana con la que miles de latinos se sienten identificados.
+            comedia con la que miles de latinos se sienten identificados.
           </p>
           <p>
-            Inicié mi carrera de stand-up en Uruguay, llevando mi visión a una nueva cultura, y
-            hoy me he presentado en escenarios de Estados Unidos, Puerto Rico, Canadá y Cuba. He
-            participado en eventos como Netflix Is A Joke y Miami Es Un Chiste, además de llevar
-            mi comedia a ciudades como Miami, Orlando, Tampa, Nueva York, Houston, Dallas,
-            Denver, San Francisco, Seattle, Toronto, Vancouver, Montreal y Montevideo, entre
-            muchas otras.
+            Inicié mi carrera de stand-up en Uruguay, y tras llegar a Estados Unidos, fundé el showcase{" "}
+            <a href="https://latinoscomedy.com/" target="_blank" rel="noreferrer">
+              Latinos Comedy
+            </a>{" "}
+            en Miami, un proyecto que por más de dos años ha creado espacios para la comedia en español
+            y conectado con la comunidad latina.
+          </p>
+          <p>
+            He abierto shows para Angelo Colina, Led Varela, Nanutria y Abelardo, entre otros.
+            He participado en eventos como{" "}
+            <a href="https://www.netflixisajokefest.com/" target="_blank" rel="noreferrer">
+              Netflix Is A Joke
+            </a>{" "}
+            y{" "}
+            <a href="https://miamiesunchiste.com/" target="_blank" rel="noreferrer">
+              Miami Es Un Chiste
+            </a>
+            , consolidando mi presencia dentro del circuito de comedia latina.
           </p>
           <p>
             Con un estilo que mezcla historias personales, observaciones culturales y el humor

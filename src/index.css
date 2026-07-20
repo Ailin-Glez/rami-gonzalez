@@ -467,6 +467,15 @@ section {
   margin: 0 0 18px;
 }
 
+.about__text a {
+  color: var(--yellow);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.about__text a:hover {
+  color: var(--pink);
+}
+
 .about__stats {
   display: flex;
   gap: 40px;
