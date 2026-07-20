@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 
 const LINKS = [
-  { href: "#sobre-mi", label: "Sobre mí" },
   { href: "#tickets", label: "Tickets" },
-  { href: "#contacto", label: "Llévame a tu ciudad" },
+  { href: "#contacto", label: "Pide tu ciudad" },
+  { href: "#sobre-mi", label: "Sobre mí" },
 ];
 
 export default function Navbar() {
